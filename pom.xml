@@ -8,5 +8,19 @@
     <artifactId>random</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <dependencies>
+        <dependency>
+            <groupId>edu.princeton.cs.algs4</groupId>
+            <artifactId>algs4</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
+    <repositories>
+        <repository>
+            <id>org.coursera.algs4</id>
+            <name>Algs4 coursera course custom repository</name>
+            <url>https://raw.github.com/slok/algs4-mvn-repo/master</url>
+        </repository>
+    </repositories>
 </project>
