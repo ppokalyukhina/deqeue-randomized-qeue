@@ -31,19 +31,29 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public Item dequeue() {
-        int t = 0;
+        int randIndex = 0;
         if (size > 1) {
-            t = StdRandom.uniform(0, size - 1);
+            randIndex = StdRandom.uniform(0, size - 1);
 
-            System.out.println(t + " random Index");
+            System.out.println(randIndex + " random Index");
         } else if (size == 0) {
-            t = 0;
+            randIndex = 0;
+
         } else if (size == 1) {
-            t = 1;
+            randIndex = 1;
         }
 
-        Item toRemove = itemArray[t];
-        itemArray[t] =  null;
+        Item toRemove = itemArray[randIndex];
+        itemArray[randIndex] =  null;
+
+            for (int i = randIndex; i < itemArray.length - randIndex; i++) {
+                if (itemArray[i+1] != null) {
+                    itemArray[i] = itemArray[i+1];
+                    itemArray[i+1] = null;
+                } else {
+                    break;
+                }
+            }
 
         size--;
 
@@ -77,19 +87,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         String one = "1";
         String two = "2";
-        randQueue.enqueue(one);
-        randQueue.enqueue(two);
 
         randQueue.enqueue(one);
-        randQueue.enqueue(two);
+//        randQueue.enqueue(two);
+//
+//        randQueue.enqueue(two);
+//        randQueue.enqueue(two);
 
-        randQueue.enqueue(one);
-        randQueue.enqueue(two);
-
-        randQueue.enqueue(two);
-
-        randQueue.dequeue();
-        randQueue.dequeue();
+//        randQueue.dequeue();
         randQueue.dequeue();
 
         for (Object o : randQueue.getarray()) {
