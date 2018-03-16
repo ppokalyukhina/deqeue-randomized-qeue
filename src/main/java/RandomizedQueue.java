@@ -36,26 +36,19 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) {
             throw new java.util.NoSuchElementException();
         }
-
         randIndex = getRandIndex();
-
         Item dequeuedItem = itemArray[randIndex];
-        itemArray[randIndex] = null;
 
-            for (int i = randIndex; i < itemArray.length - randIndex; i++) {
-                if (itemArray[i+1] != null) {
-                    itemArray[i] = itemArray[i+1];
-                    itemArray[i+1] = null;
-                } else {
-                    break;
-                }
-            }
-
-        size--;
-
-        if (size > 0 && size == itemArray.length/4) {
-            resizeArray(itemArray.length/2);
+        if(randIndex != size-1) {
+            itemArray[randIndex] = itemArray[size-1];
         }
+
+        itemArray[--size] = null;
+
+        if (size == itemArray.length / 4) {
+            resizeArray(itemArray.length / 2);
+        }
+
         return dequeuedItem;
     }
 
@@ -80,51 +73,41 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public Iterator<Item> iterator() {
-        Iterator<Item> iterator = new Iterator<Item>() {
-            int randIndex = getRandIndex();
-            int rand = randIndex + 1;
+        return new RandomizedIterator();
+    }
 
-            public boolean hasNext() {
-                return itemArray[rand] != null;
+    private class RandomizedIterator implements Iterator<Item> {
+        private int randIndex = getRandIndex();
+        private Item[] randomizedArray = itemArray;
+
+        public boolean hasNext() {
+            return itemArray[randIndex + 1] != null;
+        }
+
+        public Item next() {
+            if (!hasNext()) {
+                throw new java.util.NoSuchElementException("No more elements left in array ... ");
             }
 
-            public Item next() {
-                boolean alltrue = false;
+            for (int i = randomizedArray.length - 1; i > 0; i--) {
+                if (randomizedArray[randIndex] != null) {
+                    Item randomItem = randomizedArray[randIndex];
 
-                for (Boolean item : grid) {
-                    if (!item) {
-                        break;
-                    } else {
-                        alltrue = true;
-                    }
+                    randomizedArray[randIndex] = randomizedArray[i];
+                    randomizedArray[i] = randomItem;
                 }
-
-                if (alltrue) {
-                    throw new java.util.NoSuchElementException("No more elements left in array ... ");
-                }
-
-                if (randIndex == 0 && grid[randIndex + 1]) {
-                    rand = 0;
-                }
-
-                grid[rand] = true;
-                return itemArray[rand];
             }
+            
+            return itemArray[randIndex + 1];
+        }
 
-            public void remove() {
-                throw new java.lang.UnsupportedOperationException("Not supported in that case study");
-            }
-        };
-
-        return iterator;
+        public void remove() {
+            throw new java.lang.UnsupportedOperationException("Not supported in that case study");
+        }
     }
 
     private int getRandIndex() {
-        if (size > 1) {
-            randIndex = StdRandom.uniform(0, size - 1);
-        }
-
-        return randIndex;
+        return StdRandom.uniform(size);
     }
 
     public static void main(String[] args) {
@@ -139,18 +122,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         randQueue.enqueue("3");
         randQueue.enqueue("4");
 
-
-
-        for (int i = 0; i < randQueue.size; i++) {
-            System.out.println(randQueue.iterator().next() + " <<<< NEXT >>>");
-        }
-//            if (randQueue.iterator().hasNext()) {
-
-//            }
-
-        // System.out.println(randQueue.sample() + " >>>>> SAMPLE <<<");
-
-//        randQueue.dequeue();
-//        randQueue.dequeue();
+             while (randQueue.iterator().hasNext()) {
+                System.out.println(randQueue.iterator().next());
+            }
     }
 }

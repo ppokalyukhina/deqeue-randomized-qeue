@@ -156,7 +156,10 @@ public class Deque<Item> implements Iterable<Item> {
         deque.addFirst(zero);
         deque.addFirst(one);
         deque.addFirst(two);
+        deque.removeFirst();
 
-
+        while (deque.iterator().hasNext()) {
+            System.out.println(deque.iterator().next() + " Object");
+        }
     }
 }
