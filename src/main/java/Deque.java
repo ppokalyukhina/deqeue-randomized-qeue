@@ -7,7 +7,9 @@ public class Deque<Item> implements Iterable<Item> {
         Node previous;
     }
 
-    private Node first, last, current, previous;
+    private Node first;
+    private Node last;
+    private Node current;
 
     private int size = 0;
 
@@ -46,7 +48,7 @@ public class Deque<Item> implements Iterable<Item> {
 
             first = firstAdded;
             last = null;
-            previous = null;
+            Node previous = null;
         }
 
         size++;
@@ -54,7 +56,7 @@ public class Deque<Item> implements Iterable<Item> {
 
     public void addLast(Item item) {
         if (item == null) {
-            throw new java.lang.IllegalArgumentException("The item should not be null");
+            throw new java.lang.IllegalArgumentException("The item should not be null.");
         }
 
         if (last == null && !isEmpty()) {
