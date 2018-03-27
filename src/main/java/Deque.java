@@ -145,21 +145,6 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        String zero = "0";
-        String one = "1";
-        String two = "2";
-        String three = "3";
-        String four = "4";
 
-        Deque deque = new Deque();
-
-        deque.addFirst(zero);
-        deque.addFirst(one);
-        deque.addFirst(two);
-        deque.removeFirst();
-
-        while (deque.iterator().hasNext()) {
-            System.out.println(deque.iterator().next() + " Object");
-        }
     }
 }

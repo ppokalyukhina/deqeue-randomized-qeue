@@ -3,11 +3,7 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] itemArray = (Item[]) new Object[10];
-
     private int size = 0;
-    private int randIndex = 0;
-
-    private boolean[] grid;
 
     public RandomizedQueue() {}
 
@@ -29,14 +25,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
         itemArray[size++] = item;
-        grid = new boolean[size];
     }
 
     public Item dequeue() {
         if (isEmpty()) {
             throw new java.util.NoSuchElementException();
         }
-        randIndex = getRandIndex();
+
+        int randIndex = getRandIndex();
         Item dequeuedItem = itemArray[randIndex];
 
         if(randIndex != size-1) {
@@ -77,11 +73,20 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private class RandomizedIterator implements Iterator<Item> {
-        private int randIndex = getRandIndex();
-        private Item[] randomizedArray = itemArray;
+        private int arraySize = size;
+        private Item[] copiedItemsArray;
+
+        private int[] indexes = new int[size];
+
+        private RandomizedIterator() {
+            copiedItemsArray = (Item[]) new Object[arraySize];
+            for (int i = 0; i < arraySize; i++) {
+                copiedItemsArray[i] = itemArray[i];
+            }
+        }
 
         public boolean hasNext() {
-            return itemArray[randIndex + 1] != null;
+            return arraySize > 0;
         }
 
         public Item next() {
@@ -89,16 +94,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                 throw new java.util.NoSuchElementException("No more elements left in array ... ");
             }
 
-            for (int i = randomizedArray.length - 1; i > 0; i--) {
-                if (randomizedArray[randIndex] != null) {
-                    Item randomItem = randomizedArray[randIndex];
+            int randIndex = StdRandom.uniform(arraySize);
+            Item randItem = copiedItemsArray[randIndex];
 
-                    randomizedArray[randIndex] = randomizedArray[i];
-                    randomizedArray[i] = randomItem;
-                }
+            if (randIndex != arraySize - 1) {
+                copiedItemsArray[randIndex] = copiedItemsArray[arraySize - 1];
             }
-            
-            return itemArray[randIndex + 1];
+
+            copiedItemsArray[--arraySize] = null;
+            return randItem;
         }
 
         public void remove() {
@@ -122,8 +126,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         randQueue.enqueue("3");
         randQueue.enqueue("4");
 
-             while (randQueue.iterator().hasNext()) {
-                System.out.println(randQueue.iterator().next());
+        Iterator iter = randQueue.iterator();
+
+        for (int i= 0; i < randQueue.size; i++) {
+            if (iter.hasNext()) {
+                System.out.println(iter.next());
             }
+        }
     }
 }
