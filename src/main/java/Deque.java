@@ -13,17 +13,29 @@ public class Deque<Item> implements Iterable<Item> {
 
     private int size = 0;
 
+    /**
+     * Initialize an empty constructor.
+     */
     public Deque() {
     }
 
+    /**
+     * Shows if queue is empty.
+     */
     public boolean isEmpty() {
         return first == null;
     }
 
+    /**
+     * Current size of the queue.
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Adds item to the beginning of the queue.
+     */
     public void addFirst(Item item) {
         if (item == null) {
             throw new java.lang.IllegalArgumentException("The item should not be null");
@@ -54,6 +66,9 @@ public class Deque<Item> implements Iterable<Item> {
         size++;
     }
 
+    /**
+     * Adds an item to the end of the queue.
+     */
     public void addLast(Item item) {
         if (item == null) {
             throw new java.lang.IllegalArgumentException("The item should not be null.");
@@ -84,6 +99,10 @@ public class Deque<Item> implements Iterable<Item> {
 
         size++;
     }
+
+    /**
+     * Removes first item in the queue and returns it.
+     */
     public Item removeFirst() {
         if (isEmpty()) {
             throw new java.util.NoSuchElementException("No such element");
@@ -96,6 +115,9 @@ public class Deque<Item> implements Iterable<Item> {
         return item;
     }
 
+    /**
+     * Removes last Item in the queue and returns it.
+     */
     public Item removeLast() {
         if (isEmpty()) {
             throw new java.util.NoSuchElementException("No such element");
@@ -110,6 +132,9 @@ public class Deque<Item> implements Iterable<Item> {
         return newLast.item;
     }
 
+    /**
+     * Iterates over queue and returns next item in the queue.
+     */
     public Iterator<Item> iterator() {
         Iterator<Item> iterator = new Iterator<Item>() {
             public boolean hasNext() {

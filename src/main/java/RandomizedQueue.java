@@ -5,16 +5,28 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] itemArray = (Item[]) new Object[10];
     private int size = 0;
 
+    /**
+     * Initialize an empty constructor.
+     */
     public RandomizedQueue() {}
 
+    /**
+     * Shows if queue is empty.
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Current size of the queue.
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Adds an Item to the end of the queue. If needed, resizes by 2.
+     */
     public void enqueue(Item item) {
         if (item == null) {
             throw new java.lang.IllegalArgumentException();
@@ -27,6 +39,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         itemArray[size++] = item;
     }
 
+    /**
+     * Gets a random item, removes and returns it.
+     */
     public Item dequeue() {
         if (isEmpty()) {
             throw new java.util.NoSuchElementException();
@@ -48,6 +63,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return dequeuedItem;
     }
 
+    /**
+     * Returns a random Item in the queue.
+     */
     public Item sample() {
         if (isEmpty()) {
             throw new java.util.NoSuchElementException();
@@ -56,6 +74,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return itemArray[getRandIndex()];
     }
 
+    /**
+     * Resize array by 2.
+     */
     private void resizeArray(int capacity) {
         Item[] copy = (Item[]) new Object[capacity];
 
@@ -68,6 +89,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         itemArray = copy;
     }
 
+    /**
+     * Iterates through the queue in a random order.
+     */
     public Iterator<Item> iterator() {
         return new RandomizedIterator();
     }
