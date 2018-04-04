@@ -8,7 +8,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     /**
      * Initialize an empty constructor.
      */
-    public RandomizedQueue() {}
+    public RandomizedQueue() { }
 
     /**
      * Shows if queue is empty.
@@ -50,7 +50,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         int randIndex = getRandIndex();
         Item dequeuedItem = itemArray[randIndex];
 
-        if(randIndex != size-1) {
+        if (randIndex != size-1) {
             itemArray[randIndex] = itemArray[size-1];
         }
 
@@ -100,8 +100,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         private int arraySize = size;
         private Item[] copiedItemsArray;
 
-        private int[] indexes = new int[size];
-
         private RandomizedIterator() {
             copiedItemsArray = (Item[]) new Object[arraySize];
             for (int i = 0; i < arraySize; i++) {
@@ -139,23 +137,21 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public static void main(String[] args) {
-        RandomizedQueue randQueue = new RandomizedQueue();
+        // left empty intentionally.
 
-        String one = "1";
-        String two = "2";
+        RandomizedQueue<String> rq = new RandomizedQueue<String>();
 
-        randQueue.enqueue(one);
-        randQueue.enqueue(two);
-
-        randQueue.enqueue("3");
-        randQueue.enqueue("4");
-
-        Iterator iter = randQueue.iterator();
-
-        for (int i= 0; i < randQueue.size; i++) {
-            if (iter.hasNext()) {
-                System.out.println(iter.next());
-            }
-        }
+        rq.enqueue("VONJTIPWUH");
+        rq.enqueue("WNYYKNRQMX");
+        rq.enqueue("BTNFGPLVHV");
+        rq.enqueue("TGTEROHERK");
+        rq.enqueue("BKDNKZMELV");
+        rq.enqueue("NWLKXZGQBL");
+        rq.enqueue("PAONNAPRIE");
+        rq.enqueue("EGNOHGRZCR");
+        rq.enqueue("NGESUIXYHK");
+        System.out.println(rq.sample());
+        rq.enqueue("FOIBICKNXM");
+        rq.enqueue("VRMKOWKVBT");
     }
 }
