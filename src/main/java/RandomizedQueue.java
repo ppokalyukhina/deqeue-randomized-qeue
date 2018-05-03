@@ -138,20 +138,5 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public static void main(String[] args) {
         // left empty intentionally.
-
-        RandomizedQueue<String> rq = new RandomizedQueue<String>();
-
-        rq.enqueue("VONJTIPWUH");
-        rq.enqueue("WNYYKNRQMX");
-        rq.enqueue("BTNFGPLVHV");
-        rq.enqueue("TGTEROHERK");
-        rq.enqueue("BKDNKZMELV");
-        rq.enqueue("NWLKXZGQBL");
-        rq.enqueue("PAONNAPRIE");
-        rq.enqueue("EGNOHGRZCR");
-        rq.enqueue("NGESUIXYHK");
-        System.out.println(rq.sample());
-        rq.enqueue("FOIBICKNXM");
-        rq.enqueue("VRMKOWKVBT");
     }
 }

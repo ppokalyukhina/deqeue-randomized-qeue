@@ -3,7 +3,7 @@ import java.util.Iterator;
 public class Deque<Item> implements Iterable<Item> {
     private Node first;
     private Node last;
-//    private Node current;
+    private Node current;
 
     private class Node {
         Item item;
@@ -136,11 +136,9 @@ public class Deque<Item> implements Iterable<Item> {
     }
 
     private class DequeIterator implements Iterator<Item> {
-        private Node current;
-
         private DequeIterator() {
-            if (current == null) {
-                this.current = first;
+            if (current == null && size > 0) {
+                current = first;
             }
         }
 
@@ -155,6 +153,7 @@ public class Deque<Item> implements Iterable<Item> {
 
             Node oldCurrent = current;
             current = oldCurrent.next;
+            size--;
 
             return oldCurrent.item;
         }
@@ -168,11 +167,12 @@ public class Deque<Item> implements Iterable<Item> {
         // left empty on a purpose.
 
         Deque<Integer> deque = new Deque<Integer>();
-        deque.addFirst(1);
-        deque.addFirst(2);
+        deque.addLast(1);
+        deque.removeFirst();
+        deque.addLast(3);
 
         for (int i = 0; i < 5; i++) {
-            while (deque.iterator().hasNext()) {
+            if (deque.iterator().hasNext()) {
                 System.out.println(deque.iterator().next());
             }
         }
