@@ -80,7 +80,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private void resizeArray(int capacity) {
         Item[] copy = (Item[]) new Object[capacity];
 
-        for (int i = 0; i < capacity; i++) {
+        for (int i = 0; i < capacity / 2; i++) {
             if (itemArray[i] != null) {
                 copy[i] = itemArray[i];
             }
